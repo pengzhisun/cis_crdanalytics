@@ -27,6 +27,16 @@
                 <Parameter name="deployPackageUri" hidden="true" defaultValue="{PatternAssetBaseUrl}\Emotion.zip" />
             </Parameters>
         </ArmDeployment>
+        <ArmDeployment source="arm/deployTopicApp.json" title="Deploying Topic Web App">
+            <Parameters>
+                <Parameter name="deployPackageUri" hidden="true" defaultValue="{PatternAssetBaseUrl}\Topic.zip" />
+            </Parameters>
+        </ArmDeployment>
+        <ArmDeployment source="arm/deployWordsApp.json" title="Deploying Words Web App">
+            <Parameters>
+                <Parameter name="deployPackageUri" hidden="true" defaultValue="{PatternAssetBaseUrl}\Words.zip" />
+            </Parameters>
+        </ArmDeployment>
         <Manual title="Done">
             <Instructions src="markdown/Instructions.md" format="markdown" />
         </Manual>

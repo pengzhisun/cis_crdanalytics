@@ -10,3 +10,6 @@ Analyze and monitor customer review on productions based on review data publishe
 * ***Database***: _{Outputs.sqlDatabaseName}_
 * ***Username***: _{Outputs.sqlServerUsername}_
 * ***Password***: _\<Password provided at provision time\>_
+* ***Emotion App***: _{Outputs.emotionAppUrl}_
+* ***Topic App***: _{Outputs.topicAppUrl}_
+* ***Words App***: _{Outputs.wordsAppUrl}_
