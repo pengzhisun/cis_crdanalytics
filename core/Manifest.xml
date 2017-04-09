@@ -22,6 +22,11 @@
               <Parameter hidden="true" name="sqlServerPassword" defaultValue="{Outputs.sqlServerPassword}" />
           </Parameters>
         </Function>
+        <ArmDeployment source="arm/deployEmotionApp.json" title="Deploying Emotion Web App">
+            <Parameters>
+                <Parameter name="deployPackageUri" hidden="true" defaultValue="{PatternAssetBaseUrl}\Emotion.zip" />
+            </Parameters>
+        </ArmDeployment>
         <Manual title="Done">
             <Instructions src="markdown/Instructions.md" format="markdown" />
         </Manual>
