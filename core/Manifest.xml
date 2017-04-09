@@ -16,8 +16,8 @@
         </ArmDeployment>
         <Function name="prepsql" title="Preparing the SQL Database">
           <Parameters>
-              <Parameter hidden="true" name="sqlServer" defaultValue="{Outputs.sqlServer}" />
-              <Parameter hidden="true" name="sqlDatabase" defaultValue="{Outputs.sqlDatabase}" />
+              <Parameter hidden="true" name="sqlServerName" defaultValue="{Outputs.sqlServerName}" />
+              <Parameter hidden="true" name="sqlDatabaseName" defaultValue="{Outputs.sqlDatabaseName}" />
               <Parameter hidden="true" name="sqlServerUsername" defaultValue="{Outputs.sqlServerUsername}" />
               <Parameter hidden="true" name="sqlServerPassword" defaultValue="{Outputs.sqlServerPassword}" />
           </Parameters>
