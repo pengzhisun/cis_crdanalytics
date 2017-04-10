@@ -9,7 +9,7 @@
 	"variables": {
         "uniqueNamePrefix": "[toLower(concat(resourceGroup().name, uniqueString(subscription().subscriptionId)))]",
         "location": "[resourceGroup().location]",
-        "webSiteName": "[concat(variables('uniqueNamePrefix'), 'ws')]",
+        "webSiteName": "[concat(variables('uniqueNamePrefix'), 'wsw')]",
         "hostingPlanName": "[concat(variables('uniqueNamePrefix'), 'hostingplan')]"
 	},
 	"resources": [{
@@ -81,7 +81,7 @@
 	}],
 	"outputs" :
     {
-        "emotionAppUrl": {
+        "wordsAppUrl": {
             "type": "string",
             "value": "[concat('http://', reference(resourceId('Microsoft.Web/Sites', variables('webSiteName'))).hostNames[0])]"
         }

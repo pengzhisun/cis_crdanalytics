@@ -37,6 +37,34 @@
                 <Parameter name="deployPackageUri" hidden="true" defaultValue="{PatternAssetBaseUrl}\Words.zip" />
             </Parameters>
         </ArmDeployment>
+        <SolutionDashboard>
+            <Parameters>
+                <Parameter hidden="true" name="pbixFileUrl" defaultValue="{PatternAssetBaseUrl}/dashboards/dataChart.pbix" />
+                <Parameter hidden="true" name="sqlServer" defaultValue="{Outputs.sqlServerName}" />
+                <Parameter hidden="true" name="sqlDatabase" defaultValue="{Outputs.sqlDatabaseName}" />
+                <Parameter hidden="true" name="sqlServerUsername" defaultValue="{Outputs.sqlServerUsername}" />
+                <Parameter hidden="true" name="sqlServerPassword" defaultValue="{Outputs.sqlServerPassword}" />
+            </Parameters>
+        </SolutionDashboard>
+        <Function name="configpipeline" title="Configuring the Pipeline App">
+          <Parameters>
+              <Parameter hidden="true" name="sqlServerName" defaultValue="{Outputs.sqlServerName}" />
+              <Parameter hidden="true" name="sqlDatabaseName" defaultValue="{Outputs.sqlDatabaseName}" />
+              <Parameter hidden="true" name="sqlServerUsername" defaultValue="{Outputs.sqlServerUsername}" />
+              <Parameter hidden="true" name="sqlServerPassword" defaultValue="{Outputs.sqlServerPassword}" />
+              <Parameter hidden="true" name="emotionAppUrl" defaultValue="{Outputs.emotionAppUrl}" />
+              <Parameter hidden="true" name="topicAppUrl" defaultValue="{Outputs.topicAppUrl}" />
+              <Parameter hidden="true" name="wordsAppUrl" defaultValue="{Outputs.wordsAppUrl}" />
+              <Parameter name="storageAccountName" hidden="true" defaultValue="{Outputs.storageAccountName}">
+              <Parameter name="storageAccountKey" hidden="true" defaultValue="{Outputs.storageAccountKey}">
+              <Parameter name="containerName" hidden="true" defaultValue="asserts">
+          </Parameters>
+        </Function>
+        <ArmDeployment source="arm/deployPipelineApp.json" title="Deploying Pipeline Web App">
+            <Parameters>
+                <Parameter name="deployPackageUri" hidden="true" defaultValue="https://{Outputs.storageAccountName}.blob.core.windows.net/asserts/Pipeline.zip" />
+            </Parameters>
+        </ArmDeployment>
         <Manual title="Done">
             <Instructions src="markdown/Instructions.md" format="markdown" />
         </Manual>

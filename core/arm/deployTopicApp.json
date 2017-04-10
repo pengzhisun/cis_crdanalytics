@@ -9,7 +9,7 @@
 	"variables": {
         "uniqueNamePrefix": "[toLower(concat(resourceGroup().name, uniqueString(subscription().subscriptionId)))]",
         "location": "[resourceGroup().location]",
-        "webSiteName": "[concat(variables('uniqueNamePrefix'), 'ws')]",
+        "webSiteName": "[concat(variables('uniqueNamePrefix'), 'wst')]",
         "hostingPlanName": "[concat(variables('uniqueNamePrefix'), 'hostingplan')]"
 	},
 	"resources": [{
