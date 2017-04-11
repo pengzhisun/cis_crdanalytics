@@ -62,7 +62,7 @@
         </Function>
         <ArmDeployment source="arm/deployPipelineApp.json" title="Deploying Pipeline Web App">
             <Parameters>
-                <Parameter name="deployPackageUri" hidden="true" defaultValue="https://{Outputs.storageAccountName}.blob.core.windows.net/asserts/Pipeline.zip" />
+                <Parameter hidden="true" name="assertStorageAccount" defaultValue="{Outputs.storageAccountName}"/>
             </Parameters>
         </ArmDeployment>
         <Manual title="Done">

@@ -2,7 +2,7 @@
 	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
 	"contentVersion": "1.0.0.0",
 	"parameters": {
-		"deployPackageUri": {
+		"assertStorageAccount": {
 			"type": "string"
 		}
 	},
@@ -55,8 +55,9 @@
 				"displayName": "WebAppConfig"
 			},
 			"properties": {
-				"phpVersion": "5.6",
-				"netFrameworkVersion": "v4.6",
+				"javaVersion": "1.8",
+                "javaContainer": "TOMCAT",
+                "javaContainerVersion": "8.0",
 				"use32BitWorkerProcess": false,
 				"webSocketsEnabled": true,
 				"alwaysOn": false,
@@ -75,7 +76,7 @@
 				"displayName": "WebAppMSDeploy"
 			},
 			"properties": {
-				"packageUri": "[parameters('deployPackageUri')]"
+				"packageUri": "[concat('https://', parameters('assertStorageAccount'), '.blob.core.windows.net/asserts/Pipeline.zip')]"
 			}
 		}]
 	}],

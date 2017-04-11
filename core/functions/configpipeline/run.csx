@@ -28,7 +28,7 @@ public static async Task<object> Run(HttpRequestMessage req, TraceWriter log)
         string storageAccountKey = parametersReader.GetParameter<string>("storageAccountKey");
         string containerName = parametersReader.GetParameter<string>("containerName");
 
-        var dbConnString = $"jdbc:sqlserver://{sqlServerName}.database.chinacloudapi.cn:1433;databaseName={sqlDbName};user={sqlServerUsername};password={sqlServerPassword}";
+        var dbConnString = $"jdbc:sqlserver://{sqlServerName}.database.windows.net:1433;databaseName={sqlDbName};user={sqlServerUsername};password={sqlServerPassword}";
 
         var configFilePath = @"d:\home\site\wwwroot\configpipeline\Pipeline\config.xml";
         var configTemplate = File.ReadAllText(configFilePath);
@@ -46,7 +46,7 @@ public static async Task<object> Run(HttpRequestMessage req, TraceWriter log)
             {
                 foreach (var filePath in Directory.GetFiles(@"d:\home\site\wwwroot\configpipeline\Pipeline"))
                 {
-                    ZipArchiveEntry readmeEntry = archive.CreateEntry(Path.GetFileName(filePath));
+                    ZipArchiveEntry readmeEntry = archive.CreateEntry("webapps/" + Path.GetFileName(filePath));
                     File.OpenRead(filePath).CopyTo(readmeEntry.Open());
                 }
             }
