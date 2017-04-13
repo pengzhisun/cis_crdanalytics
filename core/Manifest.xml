@@ -55,16 +55,21 @@
               <Parameter hidden="true" name="emotionAppUrl" defaultValue="{Outputs.emotionAppUrl}" />
               <Parameter hidden="true" name="topicAppUrl" defaultValue="{Outputs.topicAppUrl}" />
               <Parameter hidden="true" name="wordsAppUrl" defaultValue="{Outputs.wordsAppUrl}" />
-              <Parameter name="storageAccountName" hidden="true" defaultValue="{Outputs.storageAccountName}">
-              <Parameter name="storageAccountKey" hidden="true" defaultValue="{Outputs.storageAccountKey}">
-              <Parameter name="containerName" hidden="true" defaultValue="asserts">
+              <Parameter hidden="true" name="storageAccountName" defaultValue="{Outputs.storageAccountName}"/>
+              <Parameter hidden="true" name="storageAccountKey" defaultValue="{Outputs.storageAccountKey}"/>
+              <Parameter hidden="true" name="containerName" defaultValue="asserts"/>
           </Parameters>
         </Function>
-        <ArmDeployment source="arm/deployPipelineApp.json" title="Deploying Pipeline Web App">
+        <ArmDeployment source="arm/deplopPipelineApp.json" title="Deploying Pipeline Web App">
             <Parameters>
-                <Parameter name="deployPackageUri" hidden="true" defaultValue="https://{Outputs.storageAccountName}.blob.core.windows.net/asserts/Pipeline.zip" />
+                <Parameter hidden="true" name="assertStorageAccount" defaultValue="{Outputs.storageAccountName}"/>
             </Parameters>
         </ArmDeployment>
+        <Function name="startpipeline" title="Starting the Pipeline App">
+          <Parameters>
+              <Parameter hidden="true" name="pipelineAppUrl" defaultValue="{Outputs.pipelineAppUrl}" />
+          </Parameters>
+        </Function>
         <Manual title="Done">
             <Instructions src="markdown/Instructions.md" format="markdown" />
         </Manual>
