@@ -28,7 +28,7 @@ public static async Task<object> Run(HttpRequestMessage req, TraceWriter log)
         string storageAccountKey = parametersReader.GetParameter<string>("storageAccountKey");
         string containerName = parametersReader.GetParameter<string>("containerName");
 
-        var dbConnString = $"jdbc:sqlserver://{sqlServerName}.database.windows.net:1433;databaseName={sqlDbName};user={sqlServerUsername}@{sqlServerName};password={sqlServerPassword}";
+        var dbConnString = $"jdbc:sqlserver://{sqlServerName}.database.windows.net:1433;databaseName={sqlDbName};user={sqlServerUsername};password={sqlServerPassword}";
 
         var configFilePath = @"d:\home\site\wwwroot\configpipeline\Pipeline\config.xml";
         var configTemplate = File.ReadAllText(configFilePath);
