@@ -9,6 +9,15 @@
     <Summary src="markdown/Summary.md" format="markdown" />
     <EstimatedTime>3 Minutes</EstimatedTime>
     <ProvisioningSteps>
+        <!-- Setup the Azure Function App correctly -->
+		<AzureFunctionApp alwaysOn="true" use32BitWorkerProcess="false" servicePlanSku="S3" servicePlanTier="Standard">
+			<AppSettings>
+				<Add key="AzureWebJobsDashboard" value="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" />
+				<Add key="AzureWebJobsStorage" value="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" />
+				<Add key="WEBSITE_CONTENTAZUREFILECONNECTIONSTRING" value="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" />
+                <Add key="WEBSITE_NODE_DEFAULT_VERSION" value="6.5.0" />
+			</AppSettings>
+		</AzureFunctionApp>
         <ArmDeployment source="arm/CreateSQLdatabaseArm.json" title="Deploying a SQL database ARM template">
             <Parameters>
                 <Credential type="sql" username="sqlServerUsername" password="sqlServerPassword" />
