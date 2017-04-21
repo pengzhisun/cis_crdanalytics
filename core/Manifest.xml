@@ -18,7 +18,6 @@
                 <Add key="WEBSITE_NODE_DEFAULT_VERSION" value="6.5.0" />
             </AppSettings>
         </AzureFunctionApp>
-
         <ArmDeployment source="arm/CreateSQLdatabaseArm.json" title="Deploying a SQL database ARM template">
             <Parameters>
                 <Credential type="sql" username="sqlServerUsername" password="sqlServerPassword" />
