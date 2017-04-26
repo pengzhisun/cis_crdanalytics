@@ -7,6 +7,7 @@ import com.ehoo.common.config.Config;
 import com.ehoo.common.util.DateUtils;
 import com.ehoo.common.util.HttpRequestUtils;
 import com.ehoo.vo.Comment;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -22,6 +23,7 @@ import java.util.concurrent.*;
 @EnableScheduling
 public class SentimentProcessTask {
 
+
     // 对数据进行二次处理，主要处理满意度相关
     private static boolean processed = false;
 
@@ -31,9 +33,13 @@ public class SentimentProcessTask {
     private static ExecutorService executor = Executors.newCachedThreadPool();
 
     private static final int COUNT = 100;
+    private static long start = 0;
+
     @Scheduled(fixedDelay = 1)
     public void sentimentProcess() {
-
+        if(start == 0){
+            start = System.currentTimeMillis();
+        }
         //从comment中取出未做情感分析的数据
         List<Map<String, Object>> comments = sentimentDAO.getUnProcessData(COUNT);
         List<Comment> resComments = new ArrayList<Comment>();
@@ -62,7 +68,7 @@ public class SentimentProcessTask {
             }
             sentimentDAO.updateCommentSentimentBatch(resComments);
         } else {
-            if(!processed){
+            if (!processed) {
                 // 修改情感标签
                 sentimentDAO.updateSnetimentTag();
                 // 修改满意度
@@ -70,12 +76,15 @@ public class SentimentProcessTask {
                 // 将日期修改为2017-01-01的一周内
                 sentimentDAO.updateDatetime();
                 processed = true;
+                long end = System.currentTimeMillis();
+                System.out.println("总重耗时：" + (end - start) / 1000 + " 秒");
             }
 
         }
 
     }
 }
+
 
 class process implements Callable<Comment> {
     private Map<String, Object> commentMap;
@@ -91,10 +100,19 @@ class process implements Callable<Comment> {
             Map<String, String> params = new HashMap<String, String>();
             params.put("query", content);
             String topicJson = HttpRequestUtils.doPost(Config.topic, params);
+            if (StringUtils.isBlank(topicJson)) {
+                return null;
+            }
             JSONObject topic = JSONObject.parseObject(topicJson);
             String emotionJson = HttpRequestUtils.doPost(Config.emotion, params);
+            if (StringUtils.isBlank(emotionJson)) {
+                return null;
+            }
             JSONObject emotion = JSONObject.parseObject(emotionJson);
             String wordsJson = HttpRequestUtils.doPost(Config.words, params);
+            if (StringUtils.isBlank(wordsJson)) {
+                return null;
+            }
             JSONObject words = JSONObject.parseObject(wordsJson);
             Comment comment = new Comment();
             comment.setProduct_name(commentMap.get("product_name").toString());

@@ -492,7 +492,7 @@ public class HttpRequestUtils {
             	return handleEntity(entity);
             }
 		} catch (Exception e) {
-			throw e; 
+			throw e;
 		}
 		finally {
             if(httpost != null){

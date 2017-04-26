@@ -1,10 +1,14 @@
-﻿package com.ehoo.DAO;
+package com.ehoo.DAO;
 
 import com.ehoo.common.config.Config;
+import com.ehoo.task.SentimentProcessTask;
 import com.ehoo.vo.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.util.*;
 
@@ -16,7 +20,7 @@ public class SentimentDAO {
     private String driverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 
 
-    public void updateDatetime(){
+    public void updateDatetime() {
         Connection conn = null;
         Statement st = null;
         try {
@@ -41,7 +45,7 @@ public class SentimentDAO {
         }
     }
 
-    public void updateSatification(){
+    public void updateSatification() {
         Connection conn = null;
         Statement st = null;
         try {
@@ -54,7 +58,7 @@ public class SentimentDAO {
                     "WHEN sentimence >= 30 AND sentimence < 60 THEN 60\n" +
                     "WHEN sentimence >= 10 AND sentimence < 30 THEN 40\n" +
                     "WHEN sentimence > 0 AND sentimence < 10 THEN 20\n" +
-                    "WHEN sentimence < 0 THEN 0\n" +
+                    "WHEN sentimence <= 0 THEN 0\n" +
                     "END";
             st = conn.createStatement();
             st.executeUpdate(sql);
@@ -119,7 +123,6 @@ public class SentimentDAO {
                     " WHERE c.processed = 0 ORDER BY c.create_time";
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
-            // ????????
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnCount = rsmd.getColumnCount();
             Map<String, Object> data = null;
@@ -198,6 +201,7 @@ public class SentimentDAO {
             pSentimence.execute();
             List<String> hotkeys = comment.hotkeys;
             if (hotkeys.size() > 0) {
+
                 String insertHotkeySql = "INSERT INTO hotkeys(id,comment_id,product,hotkey,source,rate_time,create_time) VALUES (?,?,?,?,?,?,?)";
                 pHotKeys = con.prepareStatement(insertHotkeySql);
                 for (int i = 0; i < hotkeys.size(); i++) {
@@ -252,11 +256,40 @@ public class SentimentDAO {
             }
         }
         long end = System.currentTimeMillis();
-        System.out.println("插入耗时" + (end - start));
     }
 
     public void updateCommentSentimentBatch(List<Comment> comments) {
-        long start = System.currentTimeMillis();
+        List<String> ignoreList = new ArrayList<String>();
+        ignoreList.add("问题");
+        ignoreList.add("电脑");
+        ignoreList.add("渠道");
+        ignoreList.add("东西");
+        ignoreList.add("感觉");
+        ignoreList.add("公司X");
+        ignoreList.add("产品A");
+        ignoreList.add("产品B");
+        ignoreList.add("公司Y");
+        ignoreList.add("有点");
+        ignoreList.add("平板");
+        ignoreList.add("产品");
+        ignoreList.add("A");
+        ignoreList.add("X");
+        ignoreList.add("Y");
+        ignoreList.add("B");
+        ignoreList.add("时候");
+        ignoreList.add("机器");
+        ignoreList.add("nik");
+        ignoreList.add("eve");
+        ignoreList.add("xx");
+        ignoreList.add("But");
+        ignoreList.add("ZM5");
+        ignoreList.add("ZM5");
+        ignoreList.add("IE");
+        ignoreList.add("See");
+        ignoreList.add("Z");
+        ignoreList.add("C");
+        ignoreList.add("ime");
+        ignoreList.add("ID");
         Connection con = null;
         PreparedStatement pComment = null;
         PreparedStatement pTopic = null;
@@ -303,6 +336,9 @@ public class SentimentDAO {
                 List<String> hotkeys = comment.hotkeys;
                 if (hotkeys.size() > 0) {
                     for (int i = 0; i < hotkeys.size(); i++) {
+                        if (ignoreList.contains(hotkeys.get(i))) {
+                            continue;
+                        }
                         pHotKeys.setString(1, UUID.randomUUID().toString().replaceAll("-", ""));
                         pHotKeys.setString(2, comment.getId());
                         pHotKeys.setString(3, comment.getProduct_name());
@@ -359,6 +395,5 @@ public class SentimentDAO {
             }
         }
         long end = System.currentTimeMillis();
-        System.out.println("插入耗时" + (end - start));
     }
 }

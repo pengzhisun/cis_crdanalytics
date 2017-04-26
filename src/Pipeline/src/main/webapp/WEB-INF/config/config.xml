@@ -5,8 +5,8 @@
 	<reportId>the report id</reportId>
 	<embedUrl>the embedded url</embedUrl>
 	<wcn>the workspace name</wcn>
-	<words>http://spzcist22rj3jezukxeqw6wsw.azurewebsites.net/words</words>
-	<emotion>http://spzcist22rj3jezukxeqw6wse.azurewebsites.net/emotion</emotion>
-	<topic>http://spzcist22rj3jezukxeqw6wst.azurewebsites.net/topic</topic>
-	<dataUrl>jdbc:sqlserver://spzcist22rj3jezukxeqw6srv.database.windows.net:1433;databaseName=spzcist22rj3jezukxeqw6db;user=cisdemo@spzcist22rj3jezukxeqw6srv;password=CECUser@201703</dataUrl>
+	<words>the module words url</words>
+	<emotion>the module emotion url</emotion>
+	<topic>the module topic url</topic>
+	<dataUrl>the database connection</dataUrl>
 </config>

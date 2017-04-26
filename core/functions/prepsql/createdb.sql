@@ -28,13 +28,13 @@ CREATE TABLE [dbo].[comment] (
 [source] nvarchar(20) NULL DEFAULT NULL ,
 [processed] tinyint NULL DEFAULT ('0') ,
 [topic] nvarchar(32) NULL DEFAULT NULL ,
-[sentimence] numeric(18) NULL ,
+[sentimence] numeric(18) NULL DEFAULT NULL ,
 [process_time] nvarchar(32) NULL DEFAULT NULL ,
 [update_time] nvarchar(32) NULL DEFAULT NULL ,
 [create_time] nvarchar(32) NULL DEFAULT NULL ,
-[satification] int NULL ,
+[satification] int NULL DEFAULT ((0)) ,
 [sentiment_tag] nvarchar(30) NULL ,
-[data_time] nvarchar(10) NULL ,
+[data_time] varchar(10) NULL ,
 PRIMARY KEY ([id])
 )
 

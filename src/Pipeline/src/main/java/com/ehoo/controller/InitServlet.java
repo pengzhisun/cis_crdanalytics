@@ -16,39 +16,38 @@ import java.util.Iterator;
  */
 public class InitServlet extends HttpServlet {
 
-        @Override
-        public void init(ServletConfig config) throws ServletException {
-                String path = config.getServletContext().getRealPath("");
-                File f = new File(path);
-               	
-                String configFilePath = f.getParent()+"\\config.xml";
-                try {
-                        InputStream is = new FileInputStream(new File(configFilePath));
-                        //鍒涘缓SAXReader璇诲彇鍣�
-                        SAXReader reader = new SAXReader();
-                        Document document = reader.read(is);
-                        Element element  = document.getRootElement();
-                        Iterator<Element> ite = element.elementIterator();
-                        Element appkey = element.element("appkey");
-                        Config.appkey = appkey.getText();
-                        Element workspaceId = element.element("workspaceId");
-                        Config.workspaceId = workspaceId.getText();
-                        Element reportId = element.element("reportId");
-                        Config.reportId = reportId.getText();
-                        Element wcn = element.element("wcn");
-                        Config.wcn = wcn.getText();
-                        Element words = element.element("words");
-                        Config.words = words.getText();
-                        Element emotion = element.element("emotion");
-                        Config.emotion = emotion.getText();
-                        Element topic = element.element("topic");
-                        Config.topic = topic.getText();
-                        Element dataUrl = element.element("dataUrl");
-                        Config.dataUrl = dataUrl.getText();
-                } catch (Exception e) {
-                        e.printStackTrace();
-                }
-                super.init(config);
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        String path = config.getServletContext().getRealPath("");
+        String configFilePath = path.substring(0,(path.lastIndexOf("\\webapps") + 9))+"config.xml";
+        //String configFilePath = "D:\\apache-tomcat-8.0.33\\webapps\\config.xml";
+        try {
+            InputStream is = new FileInputStream(new File(configFilePath));
+            //创建SAXReader读取器
+            SAXReader reader = new SAXReader();
+            Document document = reader.read(is);
+            Element element = document.getRootElement();
+            Iterator<Element> ite = element.elementIterator();
+            Element appkey = element.element("appkey");
+            Config.appkey = appkey.getText();
+            Element workspaceId = element.element("workspaceId");
+            Config.workspaceId = workspaceId.getText();
+            Element reportId = element.element("reportId");
+            Config.reportId = reportId.getText();
+            Element wcn = element.element("wcn");
+            Config.wcn = wcn.getText();
+            Element words = element.element("words");
+            Config.words = words.getText();
+            Element emotion = element.element("emotion");
+            Config.emotion = emotion.getText();
+            Element topic = element.element("topic");
+            Config.topic = topic.getText();
+            Element dataUrl = element.element("dataUrl");
+            Config.dataUrl = dataUrl.getText();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        super.init(config);
+    }
 
 }
