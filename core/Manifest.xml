@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Template>
     <Category>DesignPattern</Category>
-    <Title>Customer Review Analytics Solution</Title>
+    <Title>Customer Review Analytics</Title>
     <Owner displayname="Pengzhi Sun" email="Pengzhi.Sun@microsoft.com" />
     <PublishedOn>3/9/2017</PublishedOn>
     <ImageUrl>{PatternAssetBaseUrl}/image.png</ImageUrl>
-    <Description>Customer Review Analytics Solution from China Cloud Group.</Description>
+    <Description>Customer Review Analytics Tutorial from China Cloud Group.</Description>
     <Summary src="markdown/Summary.md" format="markdown" />
     <EstimatedTime>3 Minutes</EstimatedTime>
     <ProvisioningSteps>
+        <Manual parameterSource="arm/CreateSQLdatabaseArm.json" title="Setup SQL server account">
+            <Parameters>
+                <Credential type="sql" username="sqlServerUsername" password="sqlServerPassword" />
+            </Parameters>
+        </Manual>
         <!-- Setup the Azure Function App correctly -->
         <AzureFunctionApp alwaysOn="true" use32BitWorkerProcess="false" servicePlanSku="S3" servicePlanTier="Standard">
             <AppSettings>
@@ -18,11 +23,7 @@
                 <Add key="WEBSITE_NODE_DEFAULT_VERSION" value="6.5.0" />
             </AppSettings>
         </AzureFunctionApp>
-        <ArmDeployment source="arm/CreateSQLdatabaseArm.json" title="Deploying a SQL database ARM template">
-            <Parameters>
-                <Credential type="sql" username="sqlServerUsername" password="sqlServerPassword" />
-            </Parameters>
-        </ArmDeployment>
+        <ArmDeployment source="arm/CreateSQLdatabaseArm.json" title="Deploying a SQL database ARM template" autoResolveParameters="true" />
         <Function name="prepsql" title="Preparing the SQL Database">
           <Parameters>
               <Parameter hidden="true" name="sqlServerName" defaultValue="{Outputs.sqlServerName}" />
