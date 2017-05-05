@@ -47,7 +47,7 @@ The Topic WebApp contains a Chinese Topic Classification Data Model, could recei
 
 Sample response:
 
-> {"category": "性能"}
+> {"category": "Performance"}
 
 The category means the topic for the given sentence.
 
@@ -63,7 +63,7 @@ The Words WebApp contains a Chinese Keywords Extraction Data Model, could receiv
 
 Sample response:
 
-> {"words": ["电脑", "电池", "问题"]}
+> {"words": ["Computer", "Battery", "Problem"]}
 
 The response contains the extracted keywords for the given sentence.
 
