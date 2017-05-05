@@ -15,5 +15,4 @@ Analyze and monitor customer review on productions based on review data publishe
 * ***Words App***: _{Outputs.wordsAppUrl}_
 * ***Pipeline App***: _{Outputs.pipelineAppUrl}_
 
-You can see your dashboard [here]({Outputs.solutionDashboardUrl}).	
-<iframe width="780" height="480" src="{Outputs.solutionDashboardUrl}" frameborder="0" allowfullscreen></iframe>
+You can see your dashboard [here]({Outputs.solutionDashboardUrl}).
