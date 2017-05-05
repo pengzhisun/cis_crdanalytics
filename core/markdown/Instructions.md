@@ -1,4 +1,4 @@
-Customer Review Data Analytics Solution.
+Customer Review Data Analytics Tutorial.
 
 Analyze and monitor customer review on productions based on review data published on e-commerce websites.
 
