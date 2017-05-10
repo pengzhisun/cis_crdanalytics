@@ -7,7 +7,7 @@
     <ImageUrl>{PatternAssetBaseUrl}/image.png</ImageUrl>
     <Description>Customer Review Analytics Tutorial from China Cloud Group.</Description>
     <Summary src="markdown/Summary.md" format="markdown" />
-    <EstimatedTime>3 Minutes</EstimatedTime>
+    <EstimatedTime>20 Minutes</EstimatedTime>
     <ProvisioningSteps>
         <Manual parameterSource="arm/CreateSQLdatabaseArm.json" title="Setup SQL server account">
             <Parameters>
